@@ -17,7 +17,7 @@ The following actions are performed on source files:
 Drag and drop your source folder onto the winpkg executable.
 
 ### From the command line
-`winpkg C:\Users\example\Desktop\foo` \
+`winpkg C:\Users\example\Desktop\foo`
 
 `winpkg "C:\Users\example\Desktop\foo bar"`
 
