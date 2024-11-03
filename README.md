@@ -1,18 +1,24 @@
-# AnyInstall for Windows
-This program acts as an installer for any program files that you provide. Source files will be copied to '%USERPROFILE%\Programs' and an uninstaller added in Windows Settings.
+# winpkg - package installer wrapper for Windows
+
+This program creates an installer and uninstaller from application files. 
 
 ## Setup
-Download the portable executable from the `dist` folder [here](https://github.com/dmaccormac/anyinstall/tree/179863cd5b912f143288c62964d4bcd395a3cc3d/AnyInstall/dist)
+Download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
 
 ## Usage
-Put your source files into a folder and provide that folder path to AnyInstall. The name of the source folder will be used as the new app name.
+Put your source files into a folder and provide that folder path to winpkg.
+ 
+The following actions are performed on source files:
+- Files will be copied to '%USERPROFILE%\Apps\<SOURCE>'
+- The install path is added to the user PATH variable
+- Uninstaller added in Windows Settings
 
 ### From the GUI
-Drag and drop your source folder onto the AnyInstall executable.
+Drag and drop your source folder onto the winpkg executable.
 
 ### From the command line
-`AnyInstall.exe "C:\Users\example\Desktop\foobar"` 
+`winpkg C:\Users\example\Desktop\foo` \
 
-## Notes
-- When using paths with spaces, ensure that the path is enclosed in double quotes.
+`winpkg "C:\Users\example\Desktop\foo bar"`
+
 
