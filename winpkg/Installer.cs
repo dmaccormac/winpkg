@@ -1,26 +1,30 @@
 ﻿using Microsoft.Win32;
 
-namespace AnyInstall
+namespace winpkg
 {
     internal static class Installer
     {
-        public static void Run(string applicationName, string sourceFolder, string destinationFolder) 
+        public static void Run(string displayName, string sourcePath, string destinationPath) 
         {
             try
             {
-                CopyFolder(sourceFolder, destinationFolder);
-                AddEntryToUserPath(destinationFolder);
+                Console.WriteLine("winpkg " + Config.version);
+                Console.WriteLine("Installing " + sourcePath + " ==> " + destinationPath);
 
-                var baseRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + applicationName;
+                var baseRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + displayName;
+                var uninstallString = GetUninstallString(destinationPath, baseRegistryKey);          
+                
+                CopyFolder(sourcePath, destinationPath);
+                AddEntryToUserPath(destinationPath);
 
-                var uninstallString = @$"cmd.exe /c rd /q /s ""{destinationFolder}""";
-                uninstallString += @$" & for /f ""skip=2 tokens=3*"" %a in ('reg query HKCU\Environment /v PATH')";
-                uninstallString += @$" do if [%b]==[] (set %pathbak=%a) else (set pathbak=%a %b)";
-                uninstallString += @$" & call setx PATH ""%pathbak:{destinationFolder};=%""";
-                uninstallString += @$" & reg delete ""HKCU\{baseRegistryKey}"" /f";
-
-                SetRegistryKeyValue(baseRegistryKey, "DisplayName", applicationName);
+                SetRegistryKeyValue(baseRegistryKey, "DisplayName", displayName);
+                SetRegistryKeyValue(baseRegistryKey, "InstallDate", Config.date);
+                SetRegistryKeyValue(baseRegistryKey, "Publisher", Config.publisher);
+                SetRegistryKeyValue(baseRegistryKey, "HelpLink", Config.link);
                 SetRegistryKeyValue(baseRegistryKey, "UninstallString", uninstallString);
+
+                Console.WriteLine("The operation completed successfully.");
+
             }
             catch (Exception ex)
             {
@@ -29,28 +33,28 @@ namespace AnyInstall
 
         }
 
-        private static void CopyFolder(string sourceFolder, string destinationFolder)
+        private static void CopyFolder(string sourcePath, string destinationPath)
         {
             try
             {
-                if (!Directory.Exists(destinationFolder))
+                if (!Directory.Exists(destinationPath))
                 {
-                    Directory.CreateDirectory(destinationFolder);
+                    Directory.CreateDirectory(destinationPath);
                 }
 
-                string[] files = Directory.GetFiles(sourceFolder);
+                string[] files = Directory.GetFiles(sourcePath);
                 foreach (string file in files)
                 {
                     string fileName = Path.GetFileName(file);
-                    string destinationFilePath = Path.Combine(destinationFolder, fileName);
+                    string destinationFilePath = Path.Combine(destinationPath, fileName);
                     File.Copy(file, destinationFilePath);
                 }
 
-                string[] subFolders = Directory.GetDirectories(sourceFolder);
+                string[] subFolders = Directory.GetDirectories(sourcePath);
                 foreach (string subFolder in subFolders)
                 {
                     string folderName = Path.GetFileName(subFolder);
-                    string destinationSubFolder = Path.Combine(destinationFolder, folderName);
+                    string destinationSubFolder = Path.Combine(destinationPath, folderName);
                     CopyFolder(subFolder, destinationSubFolder);
                 }
             }
@@ -102,6 +106,15 @@ namespace AnyInstall
             }
         }
 
+        public static string GetUninstallString(string destinationPath, string baseRegistryKey)
+        {
+
+            string s = Config.uninstall;
+            s = s.Replace("destinationPath", destinationPath);
+            s = s.Replace("baseRegistryKey", baseRegistryKey);
+            return s;
+            
+        }
 
     }
 }

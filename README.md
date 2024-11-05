@@ -1,17 +1,22 @@
 # winpkg - package installer wrapper for Windows
 
-This program creates an installer and uninstaller from application files. 
+This program creates an installer and uninstaller package for any program files.
+It copies source files to the 'Apps' folder in the user's home directory.
+It adds the installation path to the user PATH variable.
+It creates an uninstaller for the app in Windows Settings.
 
 ## Setup
 Download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
 
-## Usage
-Put your source files into a folder and provide that folder path to winpkg.
- 
-The following actions are performed on source files:
-- Files will be copied to '%USERPROFILE%\Apps\<SOURCE>'
-- The install path is added to the user PATH variable
-- Uninstaller added in Windows Settings
+## Usage 
+WINPKG <SOURCE ...>
+
+    SOURCE   folder(s) containing application files
+
+Examples:
+    winpkg foo
+    winpkg foo bar
+    winpkg "C:\Users\example\Downloads\baz qux"
 
 ### From the GUI
 Drag and drop your source folder onto the winpkg executable.
