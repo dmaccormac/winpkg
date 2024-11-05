@@ -9,21 +9,25 @@ It creates an uninstaller for the app in Windows Settings.
 Download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
 
 ## Usage 
-WINPKG <SOURCE ...>
+    WINPKG <SOURCE ...>
 
     SOURCE   folder(s) containing application files
 
 Examples:
+
     winpkg foo
+    
     winpkg foo bar
+    
     winpkg "C:\Users\example\Downloads\baz qux"
 
 ### From the GUI
 Drag and drop your source folder onto the winpkg executable.
 
 ### From the command line
-`winpkg C:\Users\example\Desktop\foo`
 
-`winpkg "C:\Users\example\Desktop\foo bar"`
+    winpkg C:\Users\example\Desktop\foo
+
+    winpkg "C:\Users\example\Desktop\foo bar"
 
 
