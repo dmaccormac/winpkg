@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using IWshRuntimeLibrary;
 
 namespace winpkg
 {
@@ -12,7 +13,7 @@ namespace winpkg
                 Console.WriteLine("Installing " + sourcePath + " ==> " + destinationPath);
 
                 var baseRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + displayName;
-                var uninstallString = GetUninstallString(destinationPath, baseRegistryKey);          
+                var uninstallString = GetUninstallString(displayName, destinationPath, baseRegistryKey);          
                 
                 CopyFolder(sourcePath, destinationPath);
                 AddEntryToUserPath(destinationPath);
@@ -22,6 +23,8 @@ namespace winpkg
                 SetRegistryKeyValue(baseRegistryKey, "Publisher", Config.publisher);
                 SetRegistryKeyValue(baseRegistryKey, "HelpLink", Config.link);
                 SetRegistryKeyValue(baseRegistryKey, "UninstallString", uninstallString);
+
+                CreateStartMenuShortcuts(displayName, destinationPath);
 
                 Console.WriteLine("The operation completed successfully.");
 
@@ -47,7 +50,7 @@ namespace winpkg
                 {
                     string fileName = Path.GetFileName(file);
                     string destinationFilePath = Path.Combine(destinationPath, fileName);
-                    File.Copy(file, destinationFilePath);
+                    System.IO.File.Copy(file, destinationFilePath);
                 }
 
                 string[] subFolders = Directory.GetDirectories(sourcePath);
@@ -87,7 +90,7 @@ namespace winpkg
             }
         }
 
-        public static void AddEntryToUserPath(string entryToAdd)
+        private static void AddEntryToUserPath(string entryToAdd)
         {
             try
             {
@@ -106,16 +109,63 @@ namespace winpkg
             }
         }
 
-        public static string GetUninstallString(string destinationPath, string baseRegistryKey)
+        private static string GetUninstallString(string displayName, string destinationPath, string baseRegistryKey)
         {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);  // For Roaming AppData
+            string newFolderName = @"Microsoft\Windows\Start Menu\Programs\" + displayName;
+            string startMenuPath = Path.Combine(appDataPath, newFolderName);
+
 
             string s = Config.uninstall;
             s = s.Replace("destinationPath", destinationPath);
             s = s.Replace("baseRegistryKey", baseRegistryKey);
+            s = s.Replace("startMenuPath", startMenuPath);
             return s;
             
         }
 
+        private static void CreateStartMenuShortcuts(string displayName, string destinationPath)
+        {
+
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); // Roaming AppData
+            // string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); // Local AppData
+            string newFolderName = @"Microsoft\Windows\Start Menu\Programs\" + displayName;
+            string newFolderPath = Path.Combine(appDataPath, newFolderName);
+
+            if (!Directory.Exists(newFolderPath))
+            {
+                Directory.CreateDirectory(newFolderPath);
+                Console.WriteLine("Folder created successfully at: " + newFolderPath);
+            }
+            else
+            {
+                Console.WriteLine("The folder already exists: " + newFolderPath);
+            }
+
+
+            var exeFiles = Directory.GetFiles(destinationPath, "*.exe");
+            foreach (string exeFile in exeFiles)
+            {
+                var link = newFolderPath + $@"\{Path.GetFileNameWithoutExtension(exeFile)}.lnk";
+                var target = Path.GetFullPath(exeFile);
+                CreateShortcut(link, target);
+            }
+        }
+
+        private static void CreateShortcut(string shortcutPath, string targetPath)
+        {
+
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+        
+            shortcut.TargetPath = targetPath;
+            shortcut.IconLocation = targetPath;
+            shortcut.WorkingDirectory = System.IO.Path.GetDirectoryName(targetPath);
+            shortcut.Save();
+
+            Console.WriteLine("Shortcut created successfully.");
+        }
+
     }
 }
-

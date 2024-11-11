@@ -14,4 +14,6 @@
 	- Add Publisher, InstallDate, HelpLink fields
 	- Fix environment variable handling issue
 	- Turn echo off in cmd window
-	
+
+# v1.1.8
+- Start menu links

@@ -16,6 +16,7 @@ namespace winpkg
         It copies source files to the 'Apps' folder in the user's home directory. 
         It adds the installation path to the user PATH variable.
         It creates an uninstaller for the app in Windows Settings.
+        It adds shortcuts for new items to the Start Menu
 
         WINPKG <SOURCE ...>
 
@@ -36,7 +37,8 @@ namespace winpkg
         @" & call set p=%p:; =;%" + //trim possible trailing whitespace
         @" & call setx PATH %p:destinationPath;=%" +
         @" & reg delete ""HKCU\baseRegistryKey"" /f" +
-        @" & rd /q /s ""destinationPath""""";
+        @" & rd /q /s ""destinationPath""" +
+        @" & rd /q /s ""startMenuPath""""";
 
     }
 }
