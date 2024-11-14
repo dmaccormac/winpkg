@@ -17,3 +17,6 @@
 
 # v1.1.8
 - Start menu links
+
+# v1.1.9
+- Execute VBScript using cscript (No COM reference needed)

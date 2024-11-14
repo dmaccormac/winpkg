@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using IWshRuntimeLibrary;
+using System.Diagnostics;
 
 namespace winpkg
 {
@@ -155,17 +155,53 @@ namespace winpkg
 
         private static void CreateShortcut(string shortcutPath, string targetPath)
         {
+            try
+            {
+                string vbScriptCode = $@"
+                ' VBScript to create a shortcut
 
-            WshShell shell = new WshShell();
-            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-        
-            shortcut.TargetPath = targetPath;
-            shortcut.IconLocation = targetPath;
-            shortcut.WorkingDirectory = System.IO.Path.GetDirectoryName(targetPath);
-            shortcut.Save();
+                Dim objShell, objShortcut
+                Dim shortcutPath, targetPath, iconPath
 
-            Console.WriteLine("Shortcut created successfully.");
+                shortcutPath = ""{shortcutPath}""
+                targetPath = ""{targetPath}""
+                iconPath = ""{targetPath}""
+
+                Set objShell = CreateObject(""WScript.Shell"")
+                Set objShortcut = objShell.CreateShortcut(shortcutPath)
+
+                objShortcut.TargetPath = targetPath  
+                objShortcut.IconLocation = iconPath 
+                objShortcut.WindowStyle = 1         ' Normal window (1 = Normal, 7 = Minimized, 3 = Maximized)
+
+                objShortcut.Save
+                Set objShortcut = Nothing
+                Set objShell = Nothing
+                ";
+
+                string tempFilePath = System.IO.Path.GetTempFileName() + ".vbs";
+                System.IO.File.WriteAllText(tempFilePath, vbScriptCode);
+
+                var process = new Process();
+                process.StartInfo.FileName = "cscript.exe";
+                process.StartInfo.Arguments = tempFilePath;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.UseShellExecute = false;
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+
+                Console.WriteLine("VBScript Output: " + output);
+
+                System.IO.File.Delete(tempFilePath);
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+    }
+
 
     }
 }
