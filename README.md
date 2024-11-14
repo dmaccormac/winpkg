@@ -4,6 +4,7 @@ This program creates an installer and uninstaller package for any program files.
 It copies source files to the 'Apps' folder in the user's home directory.
 It adds the installation path to the user PATH variable.
 It creates an uninstaller for the app in Windows Settings.
+It adds shortcuts for new items to the Start Menu.
 
 ## Setup
 Download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
