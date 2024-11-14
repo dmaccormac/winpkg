@@ -17,5 +17,4 @@ if (args.Length > 0)
 else
 {
     Console.WriteLine(Config.help);
-
 }
