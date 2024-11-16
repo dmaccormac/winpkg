@@ -6,10 +6,10 @@ It adds the installation path to the user PATH variable.
 It creates an uninstaller for the app in Windows Settings.
 It adds shortcuts for new items to the Start Menu.
 
-## Setup
+# Setup
 Download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
 
-## Usage 
+# Usage 
 WINPKG <SOURCE ...>
 
     SOURCE   folder(s) containing application files
@@ -19,12 +19,15 @@ Examples:
     winpkg foo bar
     winpkg "C:\Users\example\Downloads\baz qux"
 
-### From the GUI
+## From the GUI
 Drag and drop your source folder onto the winpkg executable.
 
-### From the command line
+## From the command line
 `winpkg C:\Users\example\Desktop\foo`
 
 `winpkg "C:\Users\example\Desktop\foo bar"`
 
+
+# Batch file version
+The batch file version `winpkg.cmd` is suitable for distribution with application source files due to its small size.
 
