@@ -14,9 +14,10 @@
 ::    SOURCE   folder containing application files
 :: Examples:
 ::     winpkgb foo
-:: 
-:: VARIABLES
+::
 
+ 
+:: CONFIG VARS
 @echo off
 set src=%~1
 set app=%~nx1
@@ -42,7 +43,6 @@ for /f "skip=2 tokens=3*" %%a in ('reg query HKCU\Environment /v PATH') do (set 
 set p=%p:"=%
 set p=%p:; =;%
 setx PATH "%p%%dst%;" 1>nul
-::setx PATH "%p: =%%dst%;" 1>nul
 
 :: START MENU
 mkdir "%APPDATA%\Microsoft\Windows\Start Menu\Programs\%app%" 2>nul
