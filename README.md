@@ -2,7 +2,7 @@
 
 The aim of the project is to provide a tool to easily create software installation packages for Windows.
 
-winpkg can be used as a stand alone utility or distributed with your application as an install wrapper. 
+It can be used to manage ad hoc application installs or distributed with your application as an installer wrapper.
 
 The source code is available in the project repository [here](https://github.com/dmaccormac/winpkg).
  
@@ -18,9 +18,9 @@ It does not require installation or administrative privileges to run.
 
 When application files are provided to winpkg it performs the following actions: 
 - Install application to user's Apps folder
-- Create program shortcuts in the Start Menu 
-- Register the installation location (PATH)
-- Create an uninstaller in Windows setttings
+- Create program shortcuts in Start Menu 
+- Register environment variables (PATH)
+- Create an uninstaller for the program
   
 ## From the desktop
 Drag and drop your source folder onto the winpkg executable.
