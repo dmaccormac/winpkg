@@ -2,25 +2,25 @@
 
 The aim of the project is to provide a tool to easily create software installation packages for Windows.
 
-It can be used to manage ad hoc application installs or distributed with your application as an installer wrapper.
+It can be used to manage ad hoc application installations or distributed with your application as an installer wrapper.
 
 The source code is available in the project repository [here](https://github.com/dmaccormac/winpkg).
  
 # Download
 You can get the latest release [here](https://github.com/dmaccormac/winpkg/releases). 
 
-The self contained executable is targeted for Windows x64 and .NET 8.0 framework.
+The single executable file is targeted for Windows x64 and .NET 8.0.
 
 # Usage 
 The application executable `winpkg.exe` can be used from the desktop or the command line. 
 
 It does not require installation or administrative privileges to run. 
 
-When application files are provided to winpkg it performs the following actions: 
+The installer performs the following actions: 
 - Install application to user's Apps folder
 - Create program shortcuts in Start Menu 
 - Register environment variables (PATH)
-- Create an uninstaller for the program
+- Create an uninstaller for the application
   
 ## From the desktop
 Drag and drop your source folder onto the winpkg executable.
@@ -30,7 +30,7 @@ Provide the application source path as an argument to winpkg:
 
 `winpkg c:\install\foobar`
 
-## Distribution
+## Wrapper distribution
 The batch file version `winpkg.cmd` is suitable for distribution with application source files due to its small size. The batch file supports a single input parameter.
 
 # Documentation
@@ -65,6 +65,3 @@ See the [CHANGELOG](https://github.com/dmaccormac/winpkg/blob/main/CHANGELOG.md)
 [GitHub](https://github.com/dmaccormac)
 
 [Email](mailto:mail@winpkg.org)
-
-
-
