@@ -119,9 +119,7 @@
             installerContent = installerContent.Replace("sourcePath", sourcePath);
             installerContent = installerContent.Replace("displayName", displayName);
 
-            //string trimmedBatchFile = string.Join(Environment.NewLine, installerContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None).Select(line => line.TrimStart()));
             string outFileName = displayName + ".cmd";
-            //System.IO.File.WriteAllText(batchFileName, trimmedBatchFile);
             System.IO.File.WriteAllText(outFileName, installerContent);
             Console.WriteLine("Created installer " + outFileName);
         }

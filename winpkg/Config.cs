@@ -15,7 +15,7 @@ internal static readonly string help =
 $"""
 Package installer wrapper for Windows
 
-winpkg [/I] [/B] [/BB] [/BC] [/X]  <SOURCE ...>
+winpkg [/B] [/C] [/I] [/T] [/X]  <SOURCE ...>
 
 SOURCE   folder(s) containing application files
 

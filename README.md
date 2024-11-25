@@ -4,7 +4,7 @@ The aim of the project is to provide a command line tool to quickly build softwa
 
 It can be used as a utility to manage ad hoc application installations or as an installer wrapper for software deployments.
     
-The project is built using C# and is designed to be portable, compact and fast. 
+The project is built using C# and is designed to be portable, compact and fast. It can generate installers that are less than 1KB in size.
 
 # Download
 You can download the latest release [here](https://github.com/dmaccormac/winpkg/releases). 
@@ -39,8 +39,11 @@ The batch file version `winpkg.cmd` is suitable for distribution with applicatio
 To view help on the command line, run winpkg without arguments.
 
 ```
-C:\>winpkg
 Package installer wrapper for Windows
+
+winpkg [/I] [/B] [/BB] [/BC] [/X]  <SOURCE ...>
+
+SOURCE   folder(s) containing application files
 
 This program creates an installer and uninstaller package for any program files.
 It copies source files to the 'Apps' folder in the user's home directory.
@@ -48,17 +51,17 @@ It adds the installation path to the user PATH variable.
 It creates an uninstaller for the app in Windows Settings.
 It adds shortcuts for new items to the Start Menu.
 
-WINPKG <SOURCE ...>
+/B     Build installer (PowerShell default)
+        winpkg /B C:\downloads\bar
 
-    SOURCE   folder(s) containing application files
+/C     Build compact batch file installer
 
-Examples:
-    winpkg foo
-    winpkg foo bar
-    winpkg "C:\Users\example\Downloads\baz qux"
+/I     Install the application
+        winpkg /I C:\downloads\foo
 
-Version: 1.1.9
-Website: https://github.com/dmaccormac/winpkg
+/T     Build default batch file installer
+
+/X     Executable installer
 ```
 
 See the [CHANGELOG](https://github.com/dmaccormac/winpkg/blob/main/CHANGELOG.md) for more information on release versions and features.
