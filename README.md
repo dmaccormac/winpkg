@@ -41,7 +41,7 @@ To view help on the command line, run winpkg without arguments.
 ```
 Package installer wrapper for Windows
 
-winpkg [/I] [/B] [/BB] [/BC] [/X]  <SOURCE ...>
+winpkg [/B] [/C] [/I] [/T] [/X]  <SOURCE ...>
 
 SOURCE   folder(s) containing application files
 
