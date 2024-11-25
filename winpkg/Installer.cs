@@ -9,7 +9,6 @@ namespace winpkg
         {
             try
             {
-                Console.WriteLine("winpkg " + Config.version);
                 Console.WriteLine("Installing " + sourcePath + " ==> " + destinationPath);
 
                 var baseRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + displayName;
@@ -184,7 +183,7 @@ namespace winpkg
 
                 var process = new Process();
                 process.StartInfo.FileName = "cscript.exe";
-                process.StartInfo.Arguments = tempFilePath;
+                process.StartInfo.Arguments = "//Nologo //B " + tempFilePath;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
@@ -192,7 +191,7 @@ namespace winpkg
                 string output = process.StandardOutput.ReadToEnd();
                 process.WaitForExit();
 
-                Console.WriteLine("VBScript Output: " + output);
+                //Console.WriteLine("VBScript Output: " + output);
 
                 System.IO.File.Delete(tempFilePath);
         }
