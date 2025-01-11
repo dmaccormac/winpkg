@@ -24,3 +24,6 @@
 
 # v1.3
 - New C++ implementation
+
+# v1.3.1
+- Bug fix in clean up code
