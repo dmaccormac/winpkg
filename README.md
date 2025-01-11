@@ -1,8 +1,8 @@
 # Package builder for Windows
 
-The aim of the project is to provide a command line tool to quickly and easily build software installation packages for Windows.
+The aim of the project is to provide a command line tool to quickly build software installation packages for Windows.
 
-It can be used to create packages for software distribution or as a utility to manage ad hoc application installations.
+It can be used to create software packages for distribution or as a utility to manage ad hoc application installations.
     
 The project is built using C++ and is designed to be portable, compact and fast. 
 

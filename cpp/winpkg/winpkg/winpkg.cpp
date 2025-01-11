@@ -55,7 +55,7 @@ bool createConfigFile(const std::string& app, const std::string& filePath) {
 
 int main(int argc, char* argv[])
 {
-    std::cout << "winpkg 1.3\n";
+    std::cout << "winpkg 1.3.1\n";
 
     if (argc < 2) {
         std::cout << "Usage: winpkg.exe <source folder>\n";
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
     system(command.c_str());
 
     // clean up
-    command = "del /q " + app + ".7z";
+    command = "del /q " + tempFile;
     system(command.c_str());
 
     std::cout << "Done" << std::endl;
