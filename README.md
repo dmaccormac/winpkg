@@ -1,28 +1,19 @@
-# Packaging tool for Windows
+# Package builder for Windows
 
-The aim of the project is to provide a command line tool to quickly build software installation packages for Windows.
+The aim of the project is to provide a command line tool to quickly and easily build software installation packages for Windows.
 
-It can be used as a utility to manage ad hoc application installations or as an installer wrapper for software deployments.
+It can be used to create packages for software distribution or as a utility to manage ad hoc application installations.
     
-The project is built using C# and is designed to be portable, compact and fast. It can generate installers that are less than 1KB in size.
+The project is built using C++ and is designed to be portable, compact and fast. 
 
-# Download
-You can download the latest release [here](https://github.com/dmaccormac/winpkg/releases). 
-
-The release executable is targeted for Windows x64 and .NET 8.0.
-
-The source code is available in the project repository [here](https://github.com/dmaccormac/winpkg).
+You can download the latest release [here](https://github.com/dmaccormac/winpkg/releases).
 
 # Usage 
-The application executable `winpkg.exe` can be used from the desktop or the command line. 
+The stand-alone executable `winpkg.exe` can be used from the desktop or the command line.
 
-It does not require installation or administrative privileges. 
+Provide the application source folder as a parameter and winpkg will build a stand-alone executable installer package. 
 
-The installer performs the following actions: 
-- Install application to user's Apps folder
-- Create an uninstaller for the application
-- Register environment variables (PATH)
-- Create application shortcuts 
+Add your own `setup.bat` to your application source folder to customize the application installer.
 
 ## From the desktop
 Drag and drop your application folder onto the winpkg executable.
@@ -32,39 +23,10 @@ Provide the application folder path as an argument to winpkg:
 
 `winpkg c:\install\foobar`
 
-## Software deployment
-The batch file version `winpkg.cmd` is suitable for distribution with application files due to its framework agnostic design and small file size. 
-
 # Documentation
-To view help on the command line, run winpkg without arguments.
+To view help on the command line, run `winpkg` without arguments.
 
-```
-Package installer wrapper for Windows
-
-winpkg [/B] [/C] [/I] [/T] [/X]  <SOURCE ...>
-
-SOURCE   folder(s) containing application files
-
-This program creates an installer and uninstaller package for any program files.
-It copies source files to the 'Apps' folder in the user's home directory.
-It adds the installation path to the user PATH variable.
-It creates an uninstaller for the app in Windows Settings.
-It adds shortcuts for new items to the Start Menu.
-
-/B     Build installer (PowerShell default)
-        winpkg /B C:\downloads\bar
-
-/C     Build compact batch file installer
-
-/I     Install the application
-        winpkg /I C:\downloads\foo
-
-/T     Build default batch file installer
-
-/X     Executable installer
-```
-
-See the [CHANGELOG](https://github.com/dmaccormac/winpkg/blob/main/CHANGELOG.md) for more information on release versions and features.
+View the CHANGELOG file [here](https://github.com/dmaccormac/winpkg/blob/main/CHANGELOG.md).
 
 # Contact
 [GitHub](https://github.com/dmaccormac)

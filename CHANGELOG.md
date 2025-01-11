@@ -21,3 +21,6 @@
 # v1.1.9
 - Execute VBScript using cscript (No COM reference needed)
 - Added batch file support
+
+# v1.3
+- New C++ implementation
