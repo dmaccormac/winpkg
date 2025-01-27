@@ -31,7 +31,7 @@ std::string getTempPath() {
     return std::string(tempPathWStr.begin(), tempPathWStr.end());
 }
 
-bool create7z(std::string source, std::string destination) {
+bool createArchive(std::string source, std::string destination) {
     std::string tempPath = getTempPath();
     std::string command = tempPath + "7zr a -bso0 " + destination + " " + source;
     system(command.c_str());
@@ -55,10 +55,11 @@ bool createConfigFile(const std::string& app, const std::string& filePath) {
 
 int main(int argc, char* argv[])
 {
-    std::cout << "winpkg 1.3.1\n";
+    std::cout << "winpkg 1.3.2\n";
 
     if (argc < 2) {
-        std::cout << "Usage: winpkg.exe <source folder>\n";
+        std::cout << "Package builder for Windows\n";
+        std::cout << "Usage: winpkg <source>\n";
         return 1;
     }
 
@@ -92,7 +93,7 @@ int main(int argc, char* argv[])
 
 	// check if file exists
 	if (std::ifstream(tempFile)) {
-		std::cerr << "Using existing setup.bat" << std::endl;
+		std::cout << "Using existing setup.bat" << std::endl;
 	}
     else
     {
@@ -113,7 +114,7 @@ int main(int argc, char* argv[])
 
     //create 7z archive
 	tempFile = tempPath + app + ".7z";
-	create7z(source, tempFile);
+	createArchive(source, tempFile);
 
     // create sfx archive
     std::string sfx = tempPath + "7zSD.sfx+";
@@ -126,6 +127,6 @@ int main(int argc, char* argv[])
     command = "del /q " + tempFile;
     system(command.c_str());
 
-    std::cout << "Done" << std::endl;
+    std::cout << "Done." << std::endl;
 
 }

@@ -26,7 +26,26 @@ Provide the application folder path as an argument to winpkg:
 # Documentation
 To view help on the command line, run `winpkg` without arguments.
 
+Use the `-y` switch with installer packages for silent installation.
+
 View the CHANGELOG file [here](https://github.com/dmaccormac/winpkg/blob/main/CHANGELOG.md).
+
+## Examples
+
+### Build and install
+```cmd
+winpkg foobar
+```
+
+### Build and install
+```cmd
+winpkg foobar && foobar
+```
+
+### Build and silent install
+```cmd
+winpkg foobar && foobar -y
+```
 
 # Contact
 [GitHub](https://github.com/dmaccormac)

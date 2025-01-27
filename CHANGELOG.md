@@ -27,3 +27,7 @@
 
 # v1.3.1
 - Bug fix in clean up code
+
+# v.1.3.2
+- Updated setup.bat
+
