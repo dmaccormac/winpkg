@@ -1,8 +1,8 @@
 # Package builder for Windows
 
-The aim of the project is to provide a command line tool to quickly build software installation packages for Windows.
+The aim of the project is to provide a command line tool to easily build software installation packages for Windows.
 
-It can be used to create software packages for distribution or as a utility to manage ad hoc application installations.
+It can be used to create packages for software distribution or as a utility to manage ad hoc application installations.
     
 The project is built using C++ and is designed to be portable, compact and fast. 
 
@@ -32,7 +32,7 @@ View the CHANGELOG file [here](https://github.com/dmaccormac/winpkg/blob/main/CH
 
 ## Examples
 
-### Build and install
+### Build
 ```cmd
 winpkg foobar
 ```
