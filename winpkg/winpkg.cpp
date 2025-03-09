@@ -6,6 +6,10 @@
 #include <string>
 #include <windows.h> // Include Windows.h for resource functions
 
+std::string wrapInQuotes(const std::string& str) {
+    return "\"" + str + "\"";
+}
+
 bool extractResource(int resourceId, const std::string& outputPath) {
     HRSRC hResource = FindResource(NULL, MAKEINTRESOURCE(resourceId), RT_RCDATA);
     if (!hResource) return false;
@@ -33,7 +37,7 @@ std::string getTempPath() {
 
 bool createArchive(std::string source, std::string destination) {
     std::string tempPath = getTempPath();
-    std::string command = tempPath + "7zr a -bso0 " + destination + " " + source;
+    std::string command = tempPath + "7zr a -bso0 " + wrapInQuotes(destination) + " " + wrapInQuotes(source);
     system(command.c_str());
     return true;
 }
@@ -53,9 +57,11 @@ bool createConfigFile(const std::string& app, const std::string& filePath) {
 }
 
 
+
+
 int main(int argc, char* argv[])
 {
-    std::cout << "winpkg 1.3.2\n";
+    std::cout << "winpkg 1.3.3\n";
 
     if (argc < 2) {
         std::cout << "Package builder for Windows\n";
@@ -119,12 +125,12 @@ int main(int argc, char* argv[])
     // create sfx archive
     std::string sfx = tempPath + "7zSD.sfx+";
     std::string conf = tempPath + "winpkg.conf+";
-    std::string archive = tempFile + " ";
-    std::string command = "copy /b " + sfx + conf + archive + app + ".exe > NUL";
+    std::string archive = wrapInQuotes(tempFile) + " ";
+    std::string command = "copy /b " + sfx + conf + archive + wrapInQuotes(app + ".exe") + " > NUL";
     system(command.c_str());
 
     // clean up
-    command = "del /q " + tempFile;
+    command = "del /q " + wrapInQuotes(tempFile);
     system(command.c_str());
 
     std::cout << "Done." << std::endl;

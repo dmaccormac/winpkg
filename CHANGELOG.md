@@ -31,3 +31,6 @@
 # v.1.3.2
 - Updated setup.bat
 
+# v1.3.3
+- Add support for file paths with spaces
+
