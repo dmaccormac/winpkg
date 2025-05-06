@@ -34,7 +34,7 @@ goto :init
 :init
     setlocal enableextensions enabledelayedexpansion
     set "__NAME=%~n0"
-    set "__VERSION=1.3.3"
+    set "__VERSION=1.3.4"
     set "__YEAR=2025"
 
     set "__BAT_FILE=%~0"

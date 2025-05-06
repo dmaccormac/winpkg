@@ -34,3 +34,5 @@
 # v1.3.3
 - Add support for file paths with spaces
 
+# v1.3.4
+- Replace system Calls with Native APIs
